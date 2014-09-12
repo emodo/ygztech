@@ -1,0 +1,14 @@
+{
+  "name": "ygztech",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.9.0",
+    "mongoose": "^3.8.16",
+    "swig": "^1.4.2"
+  }
+}
