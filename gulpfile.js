@@ -6,12 +6,13 @@ var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
+var less = require('gulp-less');
 var del = require('del');
 
 var paths = {
   images: 'static/img/**/*',
-  styles: 'static/styles/*.css',
-  scripts: 'static/scripts/*.js'
+  styles: 'static/styles/**/*.less',
+  scripts: 'static/scripts/**/*.js'
 };
 
 // Not all tasks need to use streams
@@ -22,9 +23,8 @@ gulp.task('clean', function(cb) {
 });
 gulp.task('styles', ['clean'], function() {
   return gulp.src(paths.styles)
-    // .pipe(sass({
-    //   style: 'expanded'
-    // }))
+    .pipe(less())
+    .pipe(sourcemaps.write())
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('build/styles/'))
     .pipe(rename({
@@ -39,7 +39,9 @@ gulp.task('scripts', ['clean'], function() {
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
     .pipe(concat('all.min.js'))
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('build/js'));
@@ -52,6 +54,9 @@ gulp.task('images', ['clean'], function() {
     .pipe(imagemin({
       optimizationLevel: 5
     }))
+    .pipe(rename({
+      suffix: '.min'
+    }))
     .pipe(gulp.dest('build/img'));
 });
 
@@ -59,8 +64,8 @@ gulp.task('images', ['clean'], function() {
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
-   gulp.watch(paths.styles, ['styles']);
+  gulp.watch(paths.styles, ['styles']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts','styles', 'images']);
+gulp.task('default', ['watch', 'scripts', 'styles', 'images']);
