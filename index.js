@@ -32,7 +32,7 @@ app.use(express.static(__dirname + '/static'));
 app.get('/', function (req, res) {
 	var _obj = [];
 	for (var i = 0; i <= 100; i++) {
-		_obj.push('这个是一个段落 ' + i);
+		_obj.push('这个是一个段落    ' + i);
 	}
 
 	res.render('index', {

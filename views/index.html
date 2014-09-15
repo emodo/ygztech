@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<title>标题</title>
-	<link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css">
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}Index{% endblock %}
+{% block content %}
 	<div class="main">
 		<a href="/list">列表页</a>
 	</div>
-	<script type="text/javascript" src="/components/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.js"></script>
-</body>
-</html>
+{% endblock %}

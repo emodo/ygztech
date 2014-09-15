@@ -8,7 +8,7 @@ var minifycss = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var less = require('gulp-less');
 var del = require('del');
-
+var nodemon = require('gulp-nodemon');
 var paths = {
   images: 'static/img/**/*',
   styles: 'static/styles/**/*.less',
@@ -38,7 +38,7 @@ gulp.task('scripts', ['clean'], function() {
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
     .pipe(sourcemaps.init())
-    .pipe(concat('all.min.js'))
+    .pipe(concat('all.js'))
     .pipe(rename({
       suffix: '.min'
     }))
@@ -67,5 +67,11 @@ gulp.task('watch', function() {
   gulp.watch(paths.styles, ['styles']);
 });
 
+gulp.task('nodemon', function () {
+  nodemon({ script: 'index.js', ext: 'html js', ignore: ['ignored.js'] })
+    .on('restart', function () {
+      console.log('restarted!')
+    })
+})
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'scripts', 'styles', 'images']);
+gulp.task('default', ['watch', 'scripts', 'styles', 'images','nodemon']);
